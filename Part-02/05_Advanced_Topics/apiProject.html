@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>api project</title>
+</head>
+<body>
+    <button id="image">click here to get github profile image</button>
+    <button id="followers">click here to get github followers</button>
+</body>
+<script>
+    const image = document.querySelector("#image")
+    const followers = document.querySelector("#followers")
+    requestUrl = "https://api.github.com/users/dashvanth";
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET",requestUrl);
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState===4){
+        const data = JSON.parse(this.responseText);
+        image.addEventListener("click",function(){
+            image.innerHTML = `<img src="${data.avatar_url}">`
+        })
+        followers.addEventListener("click",function(){
+            followers.innerHTML = `<h4>Followers : ${data.followers}`
+        })
+    }
+    }
+    xhr.send();
+</script>
+</html>
